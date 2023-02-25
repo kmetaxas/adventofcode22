@@ -10,9 +10,11 @@ splitPerElf xs = elfSum: (splitPerElf rest)
 
 richestElf xs = maximum xs
 
+sumOfTopThreeElves xs = sum (take 3 sortedCals)
+  where sortedCals = reverse (sort xs)
+
 main = do
     contents <- readFile "input.txt" 
     let food = (lines contents)
     print (richestElf (splitPerElf food))
-
-    
+    print (sumOfTopThreeElves (splitPerElf food))
