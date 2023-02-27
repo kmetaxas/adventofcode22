@@ -26,6 +26,8 @@ splitStringOn c xs = ( fst splitted, part2)
         splitted = splitAt indexFound xs
         part2 = tail (snd splitted)
 
+overlap :: (Int,Int) -> (Int,Int) -> Bool
+overlap (a,b) (c,d) = length (intersect [a..b] [c..d]) /= 0
 
 main = do
     contents <- readFile "input.txt" 
@@ -35,3 +37,5 @@ main = do
     let containedStatus =  [ isFullyContained (fst x) (snd x) | x <-parsedPairs ]
     let containedNum = length ((filter (True==) containedStatus))
     printf "Fully contained pairs count %d\n" containedNum
+
+    printf "Overlapping pairs %d\n"  (length (filter (True==) [ overlap (fst x) (snd x) | x <- parsedPairs ]))
